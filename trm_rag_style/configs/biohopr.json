@@ -1,0 +1,12 @@
+{
+  "train_in": "data/biohopr/train.jsonl",
+  "dev_in": "data/biohopr/dev.jsonl",
+  "test_in": "data/biohopr/test.jsonl",
+  "entities_txt": "data/biohopr/entities.txt",
+  "relations_txt": "data/biohopr/relations.txt",
+  "entity_names_json": "",
+  "custom_link_mode": "copy",
+  "custom_train_jsonl": "data/biohopr/train.jsonl",
+  "custom_dev_jsonl": "data/biohopr/dev.jsonl",
+  "custom_test_jsonl": "data/biohopr/test.jsonl"
+}

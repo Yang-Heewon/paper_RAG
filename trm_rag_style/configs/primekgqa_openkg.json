@@ -1,0 +1,13 @@
+{
+  "train_in": "data/primekgqa_openkg/train.jsonl",
+  "dev_in": "data/primekgqa_openkg/dev.jsonl",
+  "test_in": "data/primekgqa_openkg/test.jsonl",
+  "entities_txt": "data/primekgqa_openkg/entities.txt",
+  "relations_txt": "data/primekgqa_openkg/relations.txt",
+  "entity_names_json": "",
+  "emb_dir": "trm_agent/emb/primekgqa_e5",
+  "custom_link_mode": "copy",
+  "custom_train_jsonl": "data/primekgqa_openkg/train.jsonl",
+  "custom_dev_jsonl": "data/primekgqa_openkg/dev.jsonl",
+  "custom_test_jsonl": "data/primekgqa_openkg/test.jsonl"
+}

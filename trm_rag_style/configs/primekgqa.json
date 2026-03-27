@@ -1,0 +1,12 @@
+{
+  "train_in": "data/primekgqa/train.jsonl",
+  "dev_in": "data/primekgqa/dev.jsonl",
+  "test_in": "data/primekgqa/test.jsonl",
+  "entities_txt": "data/primekgqa/entities.txt",
+  "relations_txt": "data/primekgqa/relations.txt",
+  "entity_names_json": "",
+  "custom_link_mode": "copy",
+  "custom_train_jsonl": "data/primekgqa/train.jsonl",
+  "custom_dev_jsonl": "data/primekgqa/dev.jsonl",
+  "custom_test_jsonl": "data/primekgqa/test.jsonl"
+}

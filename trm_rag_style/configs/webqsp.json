@@ -1,0 +1,7 @@
+{
+  "train_in": "data/webqsp/train.json",
+  "dev_in": "data/webqsp/dev.json",
+  "test_in": "data/webqsp/test.json",
+  "entities_txt": "data/webqsp/entities.txt",
+  "relations_txt": "data/webqsp/relations.txt"
+}

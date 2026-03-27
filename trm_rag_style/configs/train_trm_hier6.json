@@ -1,0 +1,6 @@
+{
+  "model_impl": "trm_hier6",
+  "H_cycles": 3,
+  "L_cycles": 6,
+  "L_layers": 2
+}

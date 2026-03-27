@@ -1,0 +1,11 @@
+numpy
+tqdm
+torch
+transformers
+sentence-transformers
+datasets
+sentencepiece
+einops
+pydantic
+gdown
+wandb

@@ -1,0 +1,61 @@
+# Recurrent Latent Graph Reasoning
+
+This is a paper-facing release repository for the `D` / `D+` graph reasoning models.
+
+The public surface is intentionally small:
+
+- `scripts/reproduce.py`
+- `scripts/reproduce.ps1`
+- `scripts/reproduce.cmd`
+- `paper/README.md`
+
+If you are reproducing the paper, start with the commands below and treat the rest of the codebase as implementation detail.
+
+## Named Paper Experiments
+
+- `cwq_dplus_r6i3_25x25`
+- `webqsp_dplus_r6i3_35x35`
+
+## Quick Start
+
+Install dependencies:
+
+```powershell
+pip install -r requirements.txt
+```
+
+List available experiments:
+
+```powershell
+python scripts/reproduce.py list
+```
+
+Prepare data:
+
+```powershell
+python scripts/reproduce.py prepare --dataset cwq
+python scripts/reproduce.py prepare --dataset webqsp
+```
+
+Train:
+
+```powershell
+python scripts/reproduce.py train --experiment cwq_dplus_r6i3_25x25
+python scripts/reproduce.py train --experiment webqsp_dplus_r6i3_35x35
+```
+
+Test the best checkpoint:
+
+```powershell
+python scripts/reproduce.py test-best --experiment cwq_dplus_r6i3_25x25 --metric dev_f1
+python scripts/reproduce.py test-best --experiment webqsp_dplus_r6i3_35x35 --metric dev_hit1
+```
+
+Windows wrappers:
+
+```bat
+scripts\reproduce.cmd list
+scripts\reproduce.cmd train --experiment cwq_dplus_r6i3_25x25
+```
+
+Full paper-oriented instructions are in `paper/README.md`.

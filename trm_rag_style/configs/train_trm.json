@@ -1,0 +1,6 @@
+{
+  "model_impl": "trm",
+  "H_cycles": 1,
+  "L_cycles": 8,
+  "L_layers": 2
+}
