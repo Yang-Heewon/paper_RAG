@@ -6,6 +6,8 @@ This repository is trimmed for the public paper workflow:
 2. train a named experiment
 3. test the best checkpoint
 
+The public `prepare` flow in this trimmed repo is intended for `CWQ` and `WebQSP`.
+
 ## Public Entry Points
 
 - `scripts/reproduce.py`

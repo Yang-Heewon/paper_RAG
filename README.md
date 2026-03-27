@@ -11,6 +11,8 @@ The public surface is intentionally small:
 
 If you are reproducing the paper, start with the commands below and treat the rest of the codebase as implementation detail.
 
+This trimmed release is currently set up for the paper's `CWQ` and `WebQSP` reproduction path. The `prepare` command downloads and builds those datasets through the included preparation script.
+
 ## Named Paper Experiments
 
 - `cwq_dplus_r6i3_25x25`
