@@ -68,6 +68,22 @@ python scripts/reproduce.py test-best --experiment webqsp_dplus_r6i3_35x35 --met
 
 `test-best` resolves the phase2 checkpoint directory from the experiment name and run tag automatically.
 
+## Bundled Reference Checkpoints
+
+This release also ships paper reference checkpoints under `paper/checkpoints/`.
+
+Direct evaluation:
+
+```powershell
+python scripts/reproduce.py test-reference --experiment cwq_dplus_r6i3_25x25
+python scripts/reproduce.py test-reference --experiment webqsp_dplus_r6i3_35x35
+```
+
+Reference metrics currently bundled in this repo:
+
+- `CWQ D+ r6i3`: see `paper/results/cwq_dplus_r6i3_25x25/`
+- `WebQSP D+ r6i3`: Hit@1 `0.7193`, F1 `0.6709`, see `paper/results/webqsp_dplus_r6i3_35x35/`
+
 ## Output Layout
 
 - logs: `logs/r6i5/<dataset>_<variant>_<run_tag>/`

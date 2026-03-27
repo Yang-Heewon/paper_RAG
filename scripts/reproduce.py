@@ -29,6 +29,7 @@ EXPERIMENTS: Dict[str, Dict[str, object]] = {
         "phase2_max_nodes": 2048,
         "phase2_max_edges": 8192,
         "description": "CWQ main experiment: D+ / r6i3 / 25+25.",
+        "reference_checkpoint": "paper/checkpoints/cwq_dplus_r6i3_25x25/best_checkpoint.pt",
     },
     "webqsp_dplus_r6i3_35x35": {
         "dataset": "webqsp",
@@ -45,6 +46,7 @@ EXPERIMENTS: Dict[str, Dict[str, object]] = {
         "phase2_max_nodes": 2048,
         "phase2_max_edges": 8192,
         "description": "WebQSP main experiment: D+ / r6i3 / 35+35.",
+        "reference_checkpoint": "paper/checkpoints/webqsp_dplus_r6i3_35x35/best_checkpoint.pt",
     },
 }
 
@@ -113,6 +115,10 @@ def _phase2_ckpt_dir(exp: Dict[str, object], run_tag: str) -> Path:
     model_impl = str(exp["model_impl"])
     variant_tag = _variant_path_tag(str(exp["variant"]))
     return REPO_ROOT / "trm_agent" / "ckpt" / f"{dataset}_{model_impl}_rearev_{variant_tag}_phase2_{run_tag}"
+
+
+def _reference_ckpt_path(exp: Dict[str, object]) -> Path:
+    return REPO_ROOT / str(exp["reference_checkpoint"])
 
 
 def _prepare(python_bin: str, dataset: str, dry_run: bool, extra_args: List[str]) -> None:
@@ -195,6 +201,73 @@ def _test_best(
     _run(cmd, dry_run=dry_run)
 
 
+def _test_reference(
+    python_bin: str,
+    exp: Dict[str, object],
+    dry_run: bool,
+) -> None:
+    dataset = str(exp["dataset"])
+    variant = str(exp["variant"])
+    recursion_steps = int(exp["recursion_steps"])
+    instructions = int(exp["instructions"])
+    model_impl = str(exp["model_impl"])
+    ckpt_path = _reference_ckpt_path(exp)
+    emb_dir = REPO_ROOT / "trm_agent" / "emb" / f"{dataset}_e5"
+    phase2_max_nodes = str(exp["phase2_max_nodes"])
+    phase2_max_edges = str(exp["phase2_max_edges"])
+    latent_update_mode = "attn" if variant == "dplus" else "gru"
+    gnn_variant = "rearev_dplus" if variant == "dplus" else "rearev_d"
+
+    cmd = [
+        python_bin,
+        "-m",
+        "trm_agent.run",
+        "--dataset",
+        dataset,
+        "--stage",
+        "test",
+        "--model_impl",
+        model_impl,
+        "--ckpt",
+        str(ckpt_path),
+        "--override",
+        "emb_tag=e5",
+        f"emb_dir={emb_dir}",
+        "batch_size=6",
+        "eval_limit=-1",
+        "debug_eval_n=5",
+        "eval_no_cycle=true",
+        "eval_max_steps=4",
+        "eval_max_neighbors=256",
+        "eval_prune_keep=64",
+        "eval_beam=8",
+        "eval_start_topk=5",
+        "eval_pred_topk=5",
+        "eval_use_halt=true",
+        "eval_min_hops_before_stop=2",
+        "subgraph_reader_enabled=true",
+        "subgraph_hops=3",
+        f"subgraph_max_nodes={phase2_max_nodes}",
+        f"subgraph_max_edges={phase2_max_edges}",
+        f"subgraph_recursion_steps={recursion_steps}",
+        "subgraph_pred_threshold=0.5",
+        "subgraph_split_reverse_relations=true",
+        "subgraph_direction_embedding_enabled=true",
+        f"subgraph_gnn_variant={gnn_variant}",
+        f"subgraph_rearev_num_ins={instructions}",
+        "subgraph_rearev_adapt_stages=2",
+        "subgraph_rearev_latent_reasoning_enabled=true",
+        "subgraph_rearev_latent_residual_alpha=0.25",
+        f"subgraph_rearev_latent_update_mode={latent_update_mode}",
+        "subgraph_rearev_global_gate_enabled=true",
+        "subgraph_rearev_logit_global_fusion_enabled=true",
+        "subgraph_rearev_dynamic_halting_enabled=true",
+        "subgraph_rearev_dynamic_halting_min_steps=3",
+        "subgraph_rearev_dynamic_halting_threshold=0.95",
+    ]
+    _run(cmd, dry_run=dry_run)
+
+
 def _parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(description="Paper-facing reproduction entrypoint.")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -228,6 +301,11 @@ def _parse_args() -> argparse.Namespace:
     test_best.add_argument("--dry-run", action="store_true")
     test_best.add_argument("--extra-arg", action="append", default=[])
 
+    test_reference = sub.add_parser("test-reference", help="Run test for the bundled paper reference checkpoint.")
+    test_reference.add_argument("--experiment", choices=sorted(EXPERIMENTS), required=True)
+    test_reference.add_argument("--python-bin", default="")
+    test_reference.add_argument("--dry-run", action="store_true")
+
     return ap.parse_args()
 
 
@@ -248,8 +326,17 @@ def main() -> None:
         return
 
     exp = EXPERIMENTS[args.experiment]
-    run_tag = args.run_tag or args.experiment
     python_bin = _resolve_python(args.python_bin)
+
+    if args.cmd == "test-reference":
+        _test_reference(
+            python_bin=python_bin,
+            exp=exp,
+            dry_run=args.dry_run,
+        )
+        return
+
+    run_tag = args.run_tag or args.experiment
 
     if args.cmd == "train":
         _train(

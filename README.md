@@ -53,6 +53,13 @@ python scripts/reproduce.py test-best --experiment cwq_dplus_r6i3_25x25 --metric
 python scripts/reproduce.py test-best --experiment webqsp_dplus_r6i3_35x35 --metric dev_hit1
 ```
 
+Test the bundled paper reference checkpoint directly:
+
+```powershell
+python scripts/reproduce.py test-reference --experiment cwq_dplus_r6i3_25x25
+python scripts/reproduce.py test-reference --experiment webqsp_dplus_r6i3_35x35
+```
+
 Windows wrappers:
 
 ```bat
