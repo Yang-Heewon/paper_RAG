@@ -1,23 +1,22 @@
-# CWQ D+ r6i3 Best Result
+# CWQ D+ r6i3
 
-This directory stores the public reference log for the best CWQ `D+ / r6i3` checkpoint used in the paper-facing repo.
+This directory documents the released paper reference checkpoint for the `cwq_dplus_r6i3_25x25` experiment.
 
-## Best Test Epoch
+Reference test metrics:
 
-- epoch: `21`
-- checkpoint: `model_ep21.pt`
-- test `Hit@1`: `0.5715`
-- test `F1`: `0.5575`
-- test `Precision`: `0.5424`
-- test `Recall`: `0.6358`
+- `Hit@1 = 0.5783`
+- `F1 = 0.5607`
+- `Precision = 0.5575`
+- `Recall = 0.6129`
 
-The raw test log is included as `best_test_ep21.log`.
+The matching bundled checkpoint is:
 
-## Reference Dev Summary
+- `paper/checkpoints/cwq_dplus_r6i3_25x25/best_checkpoint.pt`
 
-The phase2 training log is also included as `phase2_reference.log`. Its final summary contains:
+The raw reference test log is included as `best_test.log`.
 
-- best `dev_hit1`: `0.5902`
-- best `dev_f1`: `0.5757`
+Direct evaluation command:
 
-These files are included for transparency so paper readers can inspect the actual console output rather than only the summarized numbers.
+```powershell
+python scripts/reproduce.py test-reference --experiment cwq_dplus_r6i3_25x25
+```

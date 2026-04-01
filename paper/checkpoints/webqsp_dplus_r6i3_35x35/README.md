@@ -6,6 +6,8 @@ Files:
 
 - `best_checkpoint.pt`: bundled paper reference checkpoint
 
+The checkpoint filename is intentionally generic so reviewers can download and evaluate it directly without depending on internal epoch numbering.
+
 Evaluate it with:
 
 ```powershell

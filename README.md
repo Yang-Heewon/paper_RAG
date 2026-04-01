@@ -60,6 +60,13 @@ python scripts/reproduce.py test-reference --experiment cwq_dplus_r6i3_25x25
 python scripts/reproduce.py test-reference --experiment webqsp_dplus_r6i3_35x35
 ```
 
+The repository bundles reviewer-facing reference checkpoints as:
+
+- `paper/checkpoints/cwq_dplus_r6i3_25x25/best_checkpoint.pt`
+- `paper/checkpoints/webqsp_dplus_r6i3_35x35/best_checkpoint.pt`
+
+These files are intentionally exposed under a generic `best_checkpoint.pt` name so they can be downloaded and evaluated directly without relying on internal epoch numbering.
+
 Windows wrappers:
 
 ```bat

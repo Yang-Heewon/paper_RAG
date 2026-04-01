@@ -13,6 +13,8 @@ The matching bundled checkpoint is:
 
 - `paper/checkpoints/webqsp_dplus_r6i3_35x35/best_checkpoint.pt`
 
+The raw reference test log is included as `best_test.log`.
+
 Direct evaluation command:
 
 ```powershell

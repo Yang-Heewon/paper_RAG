@@ -81,8 +81,10 @@ python scripts/reproduce.py test-reference --experiment webqsp_dplus_r6i3_35x35
 
 Reference metrics currently bundled in this repo:
 
-- `CWQ D+ r6i3`: see `paper/results/cwq_dplus_r6i3_25x25/`
+- `CWQ D+ r6i3`: Hit@1 `0.5783`, F1 `0.5607`, see `paper/results/cwq_dplus_r6i3_25x25/`
 - `WebQSP D+ r6i3`: Hit@1 `0.7193`, F1 `0.6709`, see `paper/results/webqsp_dplus_r6i3_35x35/`
+
+Each bundled reference checkpoint is published under the generic filename `best_checkpoint.pt` for reviewer-facing evaluation.
 
 ## Output Layout
 
